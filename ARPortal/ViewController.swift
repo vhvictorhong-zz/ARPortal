@@ -58,11 +58,30 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         portalNode.position = SCNVector3(planeXposition, planeYposition, planeZposition)
         self.sceneView.scene.rootNode.addChildNode(portalNode)
         self.addPlane(nodeName: "roof", portalNode: portalNode, imageName: "top")
+        self.addPlane(nodeName: "floor", portalNode: portalNode, imageName: "bottom")
+        self.addWalls(nodeName: "backWall", portalNode: portalNode, imageName: "back")
+        self.addWalls(nodeName: "sideWallA", portalNode: portalNode, imageName: "sideA")
+        self.addWalls(nodeName: "sideWallB", portalNode: portalNode, imageName: "sideB")
+        self.addWalls(nodeName: "sideDoorA", portalNode: portalNode, imageName: "sideDoorA")
+        self.addWalls(nodeName: "sideDoorB", portalNode: portalNode, imageName: "sideDoorB")
+        
     }
     
     func addPlane(nodeName: String, portalNode: SCNNode, imageName: String) {
         
+        let child = portalNode.childNode(withName: nodeName, recursively: true)
+        child?.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "Portal.scnassets/\(imageName).png")
+        
     }
+    
+    func addWalls(nodeName: String, portalNode: SCNNode, imageName: String) {
+        
+        let child = portalNode.childNode(withName: nodeName, recursively: true)
+        child?.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "Portal.scnassets/\(imageName).png")
+        
+    }
+    
+    //MARK: - ARSCN View Delegate
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         
